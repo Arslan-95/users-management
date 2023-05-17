@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './More.module.scss';
 import { ReactSVG } from 'react-svg';
 import icon from '../../assets/more-icon.svg';
+import styles from './More.module.scss';
 
 interface IMoreItem {
   title: string;

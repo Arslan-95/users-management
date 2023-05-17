@@ -1,6 +1,7 @@
 .UserPermissionsEditor {
   display: flex;
   flex-direction: column;
+  min-width: max-content;
   gap: 5px;
   position: absolute;
   right: 0;
@@ -8,4 +9,8 @@
   background: #f9fafb;
   box-shadow: 0px 0 5px rgba(28, 28, 30, 0.1);
   z-index: 2;
+
+  &__wrapper {
+    position: relative;
+  }
 }

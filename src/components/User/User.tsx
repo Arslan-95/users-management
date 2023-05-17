@@ -1,8 +1,9 @@
 import React from 'react';
 import { IUser } from '../../utils/User';
 import { More, Tags } from '..';
-import styles from './User.module.scss';
 import UserRolesEditor from '../UserPermissionsEditor/UserPermissionsEditor';
+import { useDeleteUserMutation, useGetUsersQuery } from '../../redux/api/api';
+import styles from './User.module.scss';
 
 interface IUserProps {
   children?: React.ReactNode;
@@ -10,8 +11,10 @@ interface IUserProps {
 }
 
 const User: React.FC<IUserProps> = ({ user }) => {
-  const { name, email, image, permissions } = user.details;
+  const { id, name, email, image, permissions } = user.details;
+  const [deleteUser] = useDeleteUserMutation();
   const [isEditor, setIsEditor] = React.useState(false);
+  const { refetch } = useGetUsersQuery();
 
   const openEditor = () => {
     setIsEditor(true);
@@ -28,8 +31,9 @@ const User: React.FC<IUserProps> = ({ user }) => {
     },
     {
       title: 'Удалить',
-      onClick: (): void => {
-        console.log('s');
+      onClick: () => {
+        deleteUser(id);
+        refetch();
       },
     },
   ];

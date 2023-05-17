@@ -1,6 +1,7 @@
 .Team {
   display: flex;
   flex-direction: column;
+  max-height: 590px;
   padding: 20px;
   background: #fff;
   border-radius: 25px;
@@ -8,7 +9,6 @@
 
   &__wrapper {
     max-width: 1135px;
-    max-height: 590px;
     width: 100%;
     margin: auto;
     position: relative;

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Tag } from '../../types';
 import { useEditUserMutation, useGetTagsQuery } from '../../redux/api/api';
-import styles from './UserPermissionsEditor.module.scss';
 import useClickOutside from '../../hooks/useClickOutside';
 import { Checkbox } from '../../UI';
-import User, { IUser } from '../../utils/User';
+import { IUser } from '../../utils/User';
 import _ from 'lodash';
+import styles from './UserPermissionsEditor.module.scss';
 
 interface IUserPermissionsEditorProps {
   user: IUser;
@@ -54,16 +54,18 @@ const UserPermissionsEditor: React.FC<IUserPermissionsEditorProps> = ({
   useClickOutside(editorRef, onClose);
 
   return (
-    <div className={styles.UserPermissionsEditor} ref={editorRef}>
-      {tags &&
-        tags.map((role, index) => (
-          <Checkbox
-            title={role}
-            value={user.permissions.includes(role)}
-            onChange={(checked) => handlePermissionChange(role, checked)}
-            key={role + index}
-          />
-        ))}
+    <div className={styles.UserPermissionsEditor__wrapper}>
+      <div className={styles.UserPermissionsEditor} ref={editorRef}>
+        {tags &&
+          tags.map((role, index) => (
+            <Checkbox
+              title={role}
+              value={user.permissions.includes(role)}
+              onChange={(checked) => handlePermissionChange(role, checked)}
+              key={role + index}
+            />
+          ))}
+      </div>
     </div>
   );
 };

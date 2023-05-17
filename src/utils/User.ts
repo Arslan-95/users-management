@@ -37,7 +37,7 @@ class User implements IUser {
     this.email = email;
     this.image = image;
     this.name = name;
-    this.permissions = permissions;
+    this.permissions = permissions || [];
   }
 
   public get details() {

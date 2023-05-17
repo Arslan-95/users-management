@@ -4,8 +4,10 @@ import styles from './Team.module.scss';
 
 const Team: React.FC = () => {
   return (
-    <div className={styles.Team}>
-      <Users />
+    <div className={styles.Team__wrapper}>
+      <div className={styles.Team}>
+        <Users />
+      </div>
     </div>
   );
 };

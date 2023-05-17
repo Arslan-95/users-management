@@ -1,12 +1,16 @@
 .Team {
   display: flex;
   flex-direction: column;
-  margin: auto;
-  padding: 20px;
-  max-width: 1135px;
   max-height: 590px;
-  width: 100%;
+  padding: 20px;
   background: #fff;
   border-radius: 25px;
   box-sizing: border-box;
+
+  &__wrapper {
+    max-width: 1135px;
+    width: 100%;
+    margin: auto;
+    position: relative;
+  }
 }

@@ -10,9 +10,10 @@ interface ITagsProps {
 const Tags: React.FC<ITagsProps> = ({ items }) => {
   return (
     <div className={styles.Tags}>
-      {items.map((name, index) => (
-        <Tag name={name} key={name + index} />
-      ))}
+      {items &&
+        items
+          .filter((name) => name !== 'Все')
+          .map((name, index) => <Tag name={name} key={name + index} />)}
     </div>
   );
 };

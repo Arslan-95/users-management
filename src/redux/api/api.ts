@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { ID, IUser, IUserDetails } from '../../utils/User';
 import User from '../../utils/User';
+import { Tag } from '../../types';
 
 interface IUsersResponse {
   [key: string]: Omit<IUserDetails, 'id'>;
@@ -13,6 +14,9 @@ export const api = createApi({
       'https://test-3ad51-default-rtdb.europe-west1.firebasedatabase.app/',
   }),
   endpoints: (builder) => ({
+    getTags: builder.query<Tag[], void>({
+      query: () => 'tags.json',
+    }),
     getUsers: builder.query<IUser[], void>({
       query: () => 'users.json',
       transformResponse: (response: IUsersResponse): IUser[] => {
@@ -37,7 +41,7 @@ export const api = createApi({
         method: 'DELETE',
       }),
     }),
-    changeUser: builder.mutation<IUserDetails, IUserDetails>({
+    editUser: builder.mutation<IUserDetails, IUserDetails>({
       query: (user) => {
         const { id, ...body } = user;
 
@@ -52,8 +56,9 @@ export const api = createApi({
 });
 
 export const {
+  useGetTagsQuery,
   useGetUsersQuery,
   useAddUserMutation,
   useDeleteUserMutation,
-  useChangeUserMutation,
+  useEditUserMutation,
 } = api;

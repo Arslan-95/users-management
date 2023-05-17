@@ -12,7 +12,7 @@ const Users: React.FC = () => {
         users.map((user) => {
           const { details } = user;
 
-          return <User {...details} key={details.id} />;
+          return <User user={user} key={details.id} />;
         })}
     </div>
   );

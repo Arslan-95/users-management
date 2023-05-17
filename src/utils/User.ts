@@ -16,6 +16,7 @@ export interface IUserDetails {
 
 export interface IUser extends IUserDetails {
   details: IUserDetails;
+  updateDetails(user: IUserDetails): void;
 }
 
 class User implements IUser {
@@ -36,7 +37,7 @@ class User implements IUser {
     this.email = email;
     this.image = image;
     this.name = name;
-    this.permissions = permissions;
+    this.permissions = permissions || [];
   }
 
   public get details() {
@@ -47,6 +48,10 @@ class User implements IUser {
       name: this.name,
       permissions: this.permissions,
     };
+  }
+
+  public updateDetails(user: IUserDetails): void {
+    Object.assign(this, user);
   }
 }
 

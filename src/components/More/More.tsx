@@ -2,6 +2,7 @@ import React from 'react';
 import { ReactSVG } from 'react-svg';
 import icon from '../../assets/more-icon.svg';
 import styles from './More.module.scss';
+import useClickOutside from '../../hooks/useClickOutside';
 
 interface IMoreItem {
   title: string;
@@ -15,29 +16,11 @@ interface IMoreProps {
 interface IMenuProps {
   items: IMoreItem[];
   menuHandle: React.Dispatch<React.SetStateAction<boolean>>;
-  containerElement: Node | null;
+  containerRef: React.MutableRefObject<HTMLDivElement | null>;
 }
 
-const Menu: React.FC<IMenuProps> = ({
-  items,
-  menuHandle,
-  containerElement,
-}) => {
-  const handleClickOutside = (e: MouseEvent) => {
-    if (!containerElement) return;
-
-    if (!containerElement.contains(e.target as Node)) {
-      menuHandle(false);
-    }
-  };
-
-  React.useEffect(() => {
-    document.addEventListener('mouseup', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mouseup', handleClickOutside);
-    };
-  }, []);
+const Menu: React.FC<IMenuProps> = ({ items, menuHandle, containerRef }) => {
+  useClickOutside(containerRef, () => menuHandle(false));
 
   return (
     <div className={styles.More__menu}>
@@ -60,7 +43,6 @@ const Menu: React.FC<IMenuProps> = ({
 const More: React.FC<IMoreProps> = ({ items }) => {
   const [menu, setMenu] = React.useState(false);
   const moreRef = React.useRef<HTMLDivElement | null>(null);
-  const moreElement = moreRef.current || null;
 
   const toggleMenu = () => {
     setMenu((prev) => !prev);
@@ -70,11 +52,7 @@ const More: React.FC<IMoreProps> = ({ items }) => {
     <div className={styles.More} ref={moreRef}>
       <ReactSVG src={icon} onClick={toggleMenu} className={styles.More__icon} />
       {menu && (
-        <Menu
-          items={items}
-          menuHandle={setMenu}
-          containerElement={moreElement}
-        />
+        <Menu items={items} menuHandle={setMenu} containerRef={moreRef} />
       )}
     </div>
   );

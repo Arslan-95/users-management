@@ -32,8 +32,9 @@ const User: React.FC<IUserProps> = ({ user }) => {
     {
       title: 'Удалить',
       onClick: () => {
-        deleteUser(id);
-        refetch();
+        deleteUser(id).then(() => {
+          refetch();
+        });
       },
     },
   ];
